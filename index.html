@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新人茶敘報名｜BNI 華都更分會</title>
+<script>
+/* LINE 內建瀏覽器自動跳手機系統瀏覽器（沿用自 bni-powerteam commit 4ad9e8e）*/
+(function () {
+  var ua = navigator.userAgent || '';
+  if (/Line\//.test(ua) && !new URL(location.href).searchParams.has('openExternalBrowser')) {
+    var url = new URL(location.href);
+    url.searchParams.set('openExternalBrowser', '1');
+    window.location.href = url.toString();
+  }
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  /* ─── 設計 Token（沿用 bni-powerteam 深色金邊雜誌風）────────── */
+  :root {
+    --bg:         #0e0d0b;
+    --bg-soft:    #16140f;
+    --paper:      #1c1a14;
+    --ink:        #ede6d3;
+    --ink-dim:    #9a917a;
+    --gold:       #c9a961;
+    --gold-bright:#e8c97a;
+    --gold-deep:  #8a7440;
+    --crimson:    #b04a3a;
+    --line:       #2a261c;
+    --success:    #5a9e7a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,169,97,0.08), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 100%, rgba(176,74,58,0.04), transparent);
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 1;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.08 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 60px 24px 120px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ─── Header ──────────────────────────────────────────────── */
+  header {
+    text-align: center;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 52px;
+  }
+
+  .eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    font-size: 17px;
+    letter-spacing: 0.15em;
+    margin-bottom: 18px;
+  }
+  .eyebrow::before, .eyebrow::after { content: '✦'; margin: 0 12px; color: var(--gold-deep); }
+
+  h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: clamp(32px, 6vw, 52px);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+    background: linear-gradient(180deg, var(--ink) 0%, var(--gold-bright) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    color: var(--ink-dim);
+    max-width: 520px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.9;
+  }
+
+  /* ─── 步驟指引 ────────────────────────────────────────────── */
+  .step-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 48px;
+  }
+
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--ink-dim);
+    letter-spacing: 0.06em;
+  }
+
+  .step-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--gold-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    color: var(--gold-deep);
+    flex-shrink: 0;
+  }
+
+  .step-item.active .step-num {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--bg);
+  }
+
+  .step-item.active { color: var(--gold-bright); }
+
+  .step-sep {
+    width: 40px;
+    height: 1px;
+    background: var(--line);
+    margin: 0 8px;
+    align-self: center;
+    flex-shrink: 0;
+  }
+
+  /* ─── 表單共用 ─────────────────────────────────────────────── */
+  .form-section {
+    margin-bottom: 36px;
+  }
+
+  .field-group {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 24px 28px;
+    margin-bottom: 16px;
+    transition: border-color 0.3s;
+  }
+
+  .field-group:focus-within {
+    border-color: var(--gold-deep);
+  }
+
+  .field-label {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .field-label .req {
+    color: var(--crimson);
+    font-size: 11px;
+  }
+
+  .field-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--gold-deep);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 16px;
+    padding: 8px 4px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .field-input:focus { border-bottom-color: var(--gold-bright); }
+
+  .field-input::placeholder { color: var(--ink-dim); opacity: 0.5; font-size: 14px; }
+
+  textarea.field-input {
+    resize: vertical;
+    min-height: 80px;
+    border: 1px solid var(--gold-deep);
+    padding: 10px;
+    margin-top: 4px;
+    border-radius: 2px;
+    line-height: 1.6;
+  }
+
+  textarea.field-input:focus { border-color: var(--gold-bright); }
+
+  .field-hint {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--ink-dim);
+    opacity: 0.7;
+  }
+
+  /* ─── 場次選擇卡片 ─────────────────────────────────────────── */
+  .session-heading {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .session-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+  }
+
+  .session-card {
+    background: var(--paper);
+    border: 2px solid var(--line);
+    padding: 20px 18px;
+    cursor: pointer;
+    transition: border-color 0.25s, background 0.25s;
+    position: relative;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .session-card:hover:not(.disabled) {
+    border-color: var(--gold-deep);
+  }
+
+  .session-card.selected {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(201,169,97,0.12), rgba(201,169,97,0.04));
+  }
+
+  .session-card.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .session-date {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .session-time {
+    font-size: 12px;
+    color: var(--ink-dim);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .session-quota {
+    font-size: 12px;
+    color: var(--gold-bright);
+    letter-spacing: 0.04em;
+  }
+
+  .session-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  .session-badge.full {
+    background: rgba(176,74,58,0.25);
+    color: #d96a58;
+    border: 1px solid rgba(176,74,58,0.4);
+  }
+
+  .session-badge.closed {
+    background: rgba(90,90,90,0.25);
+    color: var(--ink-dim);
+    border: 1px solid var(--line);
+  }
+
+  .session-badge.selected {
+    background: rgba(201,169,97,0.25);
+    color: var(--gold-bright);
+    border: 1px solid var(--gold-deep);
+  }
+
+  .session-loading {
+    color: var(--ink-dim);
+    font-size: 14px;
+    padding: 24px 0;
+    text-align: center;
+    letter-spacing: 0.05em;
+  }
+
+  .session-error {
+    color: #d96a58;
+    font-size: 14px;
+    padding: 20px;
+    border: 1px solid rgba(176,74,58,0.3);
+    background: rgba(176,74,58,0.08);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* ─── 兩段式：場地須知 ─────────────────────────────────────── */
+  #venueSection {
+    display: none;
+    background: var(--paper);
+    border: 1px solid var(--gold-deep);
+    padding: 32px 28px;
+    margin-top: 0;
+    margin-bottom: 32px;
+    animation: fadeUp 0.4s ease;
+  }
+
+  .venue-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--gold-bright);
+    margin-bottom: 16px;
+    letter-spacing: 0.06em;
+  }
+
+  .venue-body {
+    font-size: 14px;
+    line-height: 2;
+    color: var(--ink-dim);
+    white-space: pre-line;
+  }
+
+  .venue-confirm-btn {
+    margin-top: 24px;
+    background: transparent;
+    border: 1px solid var(--gold-deep);
+    color: var(--gold);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    padding: 12px 28px;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    transition: all 0.25s;
+  }
+
+  .venue-confirm-btn:hover {
+    background: rgba(201,169,97,0.1);
+    border-color: var(--gold);
+    color: var(--gold-bright);
+  }
+
+  /* ─── 按鈕區域 ─────────────────────────────────────────────── */
+  .action-area {
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .next-btn, .submit-btn {
+    background: var(--gold);
+    color: var(--bg);
+    border: none;
+    padding: 18px 56px;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .next-btn:hover, .submit-btn:hover {
+    background: var(--gold-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(201,169,97,0.2);
+  }
+
+  .next-btn:disabled, .submit-btn:disabled {
+    background: var(--line);
+    color: var(--ink-dim);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  #submitBtn { display: none; margin-top: 12px; }
+
+  .status-msg {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--ink-dim);
+    min-height: 22px;
+    line-height: 1.6;
+  }
+
+  .status-msg.success { color: var(--gold-bright); }
+  .status-msg.error   { color: #d96a58; }
+
+  /* ─── Sticky bar ───────────────────────────────────────────── */
+  .sticky-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(22,20,15,0.95);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--gold-deep);
+    padding: 11px 24px;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sticky-bar.visible { transform: translateY(0); }
+
+  .sticky-bar-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .sticky-bar-text {
+    font-size: 12px;
+    color: var(--ink-dim);
+  }
+
+  .sticky-bar-text span {
+    color: var(--gold-bright);
+    font-family: 'Noto Serif TC', serif;
+  }
+
+  /* ─── Toast ────────────────────────────────────────────────── */
+  .toast {
+    position: fixed;
+    top: 68px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    background: rgba(176,74,58,0.95);
+    border: 1px solid #d96a58;
+    color: #ffe8e3;
+    font-size: 14px;
+    padding: 12px 22px;
+    border-radius: 4px;
+    box-shadow: 0 4px 24px rgba(176,74,58,0.4);
+    max-width: calc(100vw - 40px);
+    text-align: center;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+  }
+
+  .toast.hiding { opacity: 0; }
+
+  /* ─── 成功畫面 ─────────────────────────────────────────────── */
+  #successScreen {
+    display: none;
+    text-align: center;
+    padding: 60px 24px;
+    animation: fadeUp 0.5s ease;
+  }
+
+  .success-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  .success-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--gold-bright);
+    margin-bottom: 16px;
+  }
+
+  .success-body {
+    font-size: 14px;
+    color: var(--ink-dim);
+    line-height: 2;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  /* ─── 動畫 ────────────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .session-card { animation: fadeUp 0.5s ease backwards; }
+  .session-card:nth-child(1) { animation-delay: 0.04s; }
+  .session-card:nth-child(2) { animation-delay: 0.1s; }
+  .session-card:nth-child(3) { animation-delay: 0.16s; }
+  .session-card:nth-child(4) { animation-delay: 0.22s; }
+  .session-card:nth-child(5) { animation-delay: 0.28s; }
+  .session-card:nth-child(6) { animation-delay: 0.34s; }
+
+  /* ─── RWD ─────────────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .container { padding: 40px 16px 80px; }
+    .field-group { padding: 20px 18px; }
+    .session-cards { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .session-card { padding: 16px 14px; }
+    .session-date { font-size: 18px; }
+    .step-sep { width: 24px; }
+    .toast { top: 56px; font-size: 13px; padding: 10px 14px; }
+    #venueSection { padding: 24px 18px; }
+  }
+
+  @media (max-width: 400px) {
+    .session-cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     ⬇⬇⬇  只有這一行需要你動！  ⬇⬇⬇
+     把下面引號中的內容換成你的 Google Apps Script 網頁應用程式網址
+     （教學文件 STEP 1-4 會告訴你怎麼拿到這串 /exec 網址）
+     ═══════════════════════════════════════════════════════════ -->
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwP_OI6cHwRWtw9i4sS7Ju_CBXHyXzEUarqoRnj1LFnExyMOlsYei17Qs05UytN7zYDVg/exec";
+
+/* ── 場地須知（只改這裡，其餘地方不用動）──────────────────────────
+   場地資訊每場前兩週由 email 通知，聯絡人請 Joan 換成實際負責夥伴。  */
+const VENUE_NOTICE =
+  "📍 場地資訊\n" +
+  "場地將於活動前兩週以 email 通知\n\n" +
+  "茶敘時間 14:00~16:30\n" +
+  "13:00 開始歡迎提早入場交流\n\n" +
+  "有任何問題歡迎詢問導師協調夥伴\n" +
+  "（場地與聯絡人 Joan 可在此處自行替換）";
+</script>
+<!-- ═══════════════════════════════════════════════════════════
+     ⬆⬆⬆  只有這一行需要你動！  ⬆⬆⬆
+     ═══════════════════════════════════════════════════════════ -->
+
+<div class="container">
+  <header>
+    <div class="eyebrow">BNI 華都更分會 新人茶敘</div>
+    <h1>預約你的<br>第一次茶敘</h1>
+    <p class="subtitle">每月一場，名額有限，報名後系統自動確認。<br>填好資料、選好場次，就完成了。</p>
+  </header>
+
+  <!-- 步驟指引 -->
+  <div class="step-indicator" id="stepIndicator">
+    <div class="step-item active" id="step1Item">
+      <div class="step-num">1</div>
+      <span>填寫資料</span>
+    </div>
+    <div class="step-sep"></div>
+    <div class="step-item" id="step2Item">
+      <div class="step-num">2</div>
+      <span>場地須知</span>
+    </div>
+    <div class="step-sep"></div>
+    <div class="step-item" id="step3Item">
+      <div class="step-num">3</div>
+      <span>完成報名</span>
+    </div>
+  </div>
+
+  <!-- ── 主表單（第一步）────────────────────────────────────── -->
+  <div id="formSection">
+
+    <!-- 姓名 -->
+    <div class="field-group">
+      <div class="field-label">姓名 <span class="req">必填</span></div>
+      <input class="field-input" type="text" id="fieldName" placeholder="請輸入您的姓名" autocomplete="name">
+    </div>
+
+    <!-- 手機 -->
+    <div class="field-group">
+      <div class="field-label">手機號碼 <span class="req">必填</span></div>
+      <input class="field-input" type="tel" id="fieldPhone" placeholder="09xxxxxxxx" autocomplete="tel" inputmode="numeric">
+      <div class="field-hint">格式：09 開頭，10 碼數字</div>
+    </div>
+
+    <!-- email -->
+    <div class="field-group">
+      <div class="field-label">Email <span class="req">必填</span></div>
+      <input class="field-input" type="email" id="fieldEmail" placeholder="your@email.com" autocomplete="email" inputmode="email">
+    </div>
+
+    <!-- 引薦人 -->
+    <div class="field-group">
+      <div class="field-label">引薦人 / 邀請夥伴 <span class="req">必填</span></div>
+      <input class="field-input" type="text" id="fieldReferrer" placeholder="哪位 BNI 夥伴邀請您來的？">
+      <div class="field-hint">這一場茶敘，是哪位會員引薦您？（填對方的姓名即可）</div>
+    </div>
+
+    <!-- 場次選擇 -->
+    <div class="field-group">
+      <div class="session-heading">選擇場次 <span class="req" style="font-family:'Noto Sans TC';font-weight:300;">必選</span></div>
+      <div class="session-cards" id="sessionCards">
+        <div class="session-loading">場次載入中…</div>
+      </div>
+    </div>
+
+    <!-- 悄悄話（選填） -->
+    <div class="field-group">
+      <div class="field-label">想跟 BNI 說的悄悄話 <span style="color:var(--ink-dim);font-weight:300;font-size:12px;">選填</span></div>
+      <textarea class="field-input" id="fieldMessage" placeholder="對這次茶敘的期待、想認識的產業、或任何想讓主辦夥伴提前知道的事…"></textarea>
+    </div>
+
+    <!-- 下一步按鈕 -->
+    <div class="action-area">
+      <button class="next-btn" id="nextBtn" disabled>下一步：查看場地須知</button>
+      <div class="status-msg" id="statusMsg1"></div>
+    </div>
+
+  </div><!-- /formSection -->
+
+  <!-- ── 第二步：場地須知 ────────────────────────────────────── -->
+  <div id="venueSection">
+    <div class="venue-title">場地與注意事項</div>
+    <div class="venue-body" id="venueBody"></div>
+    <button class="venue-confirm-btn" id="venueConfirmBtn">我知道了，確認送出報名</button>
+  </div>
+
+  <!-- 送出按鈕（場地須知確認後出現） -->
+  <div class="action-area" id="submitArea" style="display:none;">
+    <button class="submit-btn" id="submitBtn">送出報名</button>
+    <div class="status-msg" id="statusMsg2"></div>
+  </div>
+
+  <!-- ── 成功畫面 ─────────────────────────────────────────────── -->
+  <div id="successScreen">
+    <div class="success-icon">✦</div>
+    <div class="success-title">報名成功！</div>
+    <div class="success-body" id="successBody"></div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- Sticky bar -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-bar-inner">
+    <div class="sticky-bar-text" id="stickyText">尚未選擇場次</div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════════
+   前台資料流：
+   1. 頁面載入 → fetchSessions() 向 GAS doGet(?counts=1) 拿
+      { sessions: [{ id, date, time, cap, enrolled, remaining, full, closed }] }
+   2. renderCards() 動態建場次卡片
+      - full=true  → disabled + 「已額滿」badge
+      - closed=true → disabled + 「已截止」badge
+      - 其餘 → 可點選，顯示「剩 N / 上限 M」
+   3. 新人選卡片 → 卡片 selected 高亮，記住 selectedSession
+   4. 填完資料 + 選好場次 → nextBtn 啟用
+   5. 按「下一步」→ 顯示場地須知區塊（venueSection）
+   6. 按「我知道了」→ 顯示 submitBtn
+   7. 按「送出報名」→ fetch POST（text/plain，非 no-cors）→ 讀 body 判斷：
+      - ok:true   → 顯示成功畫面
+      - full:true → Toast「此場次剛好額滿」+ 重新載入場次
+      - duplicate → Toast「您已報名此場次」
+      - 其他錯誤  → 顯示錯誤訊息
+
+   CORS 方案說明：
+   - 前台 POST 用 Content-Type: text/plain — 瀏覽器視為「簡單請求」不發 preflight
+   - GAS 回 ContentService JSON（非 no-cors），前台正常讀 response body
+   - 因此 full / duplicate 狀態能確實傳回前台，自動鎖場功能有效
+════════════════════════════════════════════════════════════════ */
+
+var selectedSession = null; // { id, date, time, cap, remaining }
+var venueConfirmed  = false;
+
+// ── DOM refs ────────────────────────────────────────────────────
+var fieldName     = document.getElementById('fieldName');
+var fieldPhone    = document.getElementById('fieldPhone');
+var fieldEmail    = document.getElementById('fieldEmail');
+var fieldReferrer = document.getElementById('fieldReferrer');
+var fieldMessage  = document.getElementById('fieldMessage');
+var nextBtn       = document.getElementById('nextBtn');
+var submitBtn     = document.getElementById('submitBtn');
+var statusMsg1    = document.getElementById('statusMsg1');
+var statusMsg2    = document.getElementById('statusMsg2');
+var venueSection  = document.getElementById('venueSection');
+var submitArea    = document.getElementById('submitArea');
+var venueBody     = document.getElementById('venueBody');
+var venueConfirmBtn = document.getElementById('venueConfirmBtn');
+var sessionCards  = document.getElementById('sessionCards');
+var successScreen = document.getElementById('successScreen');
+var formSection   = document.getElementById('formSection');
+var stickyBar     = document.getElementById('stickyBar');
+var stickyText    = document.getElementById('stickyText');
+
+// ── Sticky bar 滾動顯示 ─────────────────────────────────────────
+(function () {
+  var header = document.querySelector('header');
+  function onScroll() {
+    if (header.getBoundingClientRect().bottom <= 0) {
+      stickyBar.classList.add('visible');
+    } else {
+      stickyBar.classList.remove('visible');
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+// ── Toast ────────────────────────────────────────────────────────
+var _toastEl = null, _toastTimer = null;
+function showToast(text) {
+  if (_toastEl) { _toastEl.remove(); _toastEl = null; }
+  if (_toastTimer) clearTimeout(_toastTimer);
+  var el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = text;
+  document.body.appendChild(el);
+  _toastEl = el;
+  _toastTimer = setTimeout(function () {
+    el.classList.add('hiding');
+    setTimeout(function () { if (el.parentNode) el.remove(); if (_toastEl === el) _toastEl = null; }, 400);
+  }, 3200);
+}
+
+// ── 狀態訊息 ─────────────────────────────────────────────────────
+function showStatus(el, text, cls, duration) {
+  el.textContent = text;
+  el.className = 'status-msg' + (cls ? ' ' + cls : '');
+  if (duration) {
+    setTimeout(function () { el.textContent = ''; el.className = 'status-msg'; }, duration);
+  }
+}
+
+// ── 表單驗證 ─────────────────────────────────────────────────────
+function validateForm() {
+  var name     = fieldName.value.trim();
+  var phone    = fieldPhone.value.trim();
+  var email    = fieldEmail.value.trim();
+  var referrer = fieldReferrer.value.trim();
+  if (!name || !phone || !email || !referrer || !selectedSession) return false;
+  if (!/^09\d{8}$/.test(phone)) return false;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return false;
+  return true;
+}
+
+function updateNextBtn() {
+  nextBtn.disabled = !validateForm();
+  // 更新 sticky bar
+  if (selectedSession) {
+    stickyText.innerHTML = '已選：<span>' + selectedSession.date + '</span>';
+  } else {
+    stickyText.innerHTML = '尚未選擇場次';
+  }
+}
+
+[fieldName, fieldPhone, fieldEmail, fieldReferrer].forEach(function (f) {
+  f.addEventListener('input', updateNextBtn);
+});
+
+// ── 場次載入 + render ────────────────────────────────────────────
+function fetchSessions() {
+  if (SCRIPT_URL.indexOf('PASTE_YOUR') !== -1) {
+    sessionCards.innerHTML = '<div class="session-error">系統尚未設定完成。<br>管理者請依教學文件貼上 Apps Script 網址。</div>';
+    return;
+  }
+  fetch(SCRIPT_URL + '?counts=1')
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      if (!data.ok || !Array.isArray(data.sessions)) {
+        throw new Error('格式錯誤');
+      }
+      if (data.sessions.length === 0) {
+        sessionCards.innerHTML = '<div class="session-loading">目前尚無開放場次，請稍後再查詢。</div>';
+        return;
+      }
+      renderCards(data.sessions);
+    })
+    .catch(function () {
+      sessionCards.innerHTML = '<div class="session-error">場次載入失敗，請稍後再試或聯絡導師協調夥伴。</div>';
+    });
+}
+
+function renderCards(sessions) {
+  sessionCards.innerHTML = '';
+  sessions.forEach(function (s, idx) {
+    var card = document.createElement('div');
+    card.className = 'session-card' + (s.full || s.closed ? ' disabled' : '');
+    card.dataset.id = s.id;
+    card.style.animationDelay = (idx * 0.06) + 's';
+
+    var badgeHtml = '';
+    if (s.full) {
+      badgeHtml = '<div class="session-badge full">已額滿</div>';
+    } else if (s.closed) {
+      badgeHtml = '<div class="session-badge closed">已截止</div>';
+    }
+
+    var quotaText = s.full
+      ? '名額已滿'
+      : s.closed
+        ? '報名已截止'
+        : '剩餘 ' + s.remaining + ' 位 / 上限 ' + s.cap;
+
+    card.innerHTML =
+      badgeHtml +
+      '<div class="session-date">' + s.date + '</div>' +
+      '<div class="session-time">' + s.time + '</div>' +
+      '<div class="session-quota">' + quotaText + '</div>';
+
+    if (!s.full && !s.closed) {
+      card.addEventListener('click', function () {
+        // 取消所有選取
+        document.querySelectorAll('.session-card.selected').forEach(function (c) {
+          c.classList.remove('selected');
+          var badge = c.querySelector('.session-badge.selected');
+          if (badge) badge.remove();
+        });
+        // 選取這張
+        card.classList.add('selected');
+        var sb = document.createElement('div');
+        sb.className = 'session-badge selected';
+        sb.textContent = '已選';
+        card.insertBefore(sb, card.firstChild);
+
+        selectedSession = s;
+        updateNextBtn();
+      });
+    }
+
+    sessionCards.appendChild(card);
+  });
+}
+
+// ── 步驟切換 ─────────────────────────────────────────────────────
+function setStep(n) {
+  for (var i = 1; i <= 3; i++) {
+    var item = document.getElementById('step' + i + 'Item');
+    if (i === n) item.classList.add('active');
+    else item.classList.remove('active');
+  }
+}
+
+// ── 下一步：顯示場地須知 ─────────────────────────────────────────
+nextBtn.addEventListener('click', function () {
+  // 前端二次驗證（容錯）
+  var phone = fieldPhone.value.trim();
+  var email = fieldEmail.value.trim();
+  if (!/^09\d{8}$/.test(phone)) {
+    showStatus(statusMsg1, '手機格式不正確，請填 09 開頭的 10 碼數字', 'error', 4000);
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showStatus(statusMsg1, 'Email 格式不正確，請重新確認', 'error', 4000);
+    return;
+  }
+
+  // 顯示場地須知
+  venueBody.textContent = VENUE_NOTICE;
+  venueSection.style.display = 'block';
+  venueSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  nextBtn.disabled = true;
+  setStep(2);
+});
+
+// ── 確認場地須知 → 出現送出按鈕 ──────────────────────────────────
+venueConfirmBtn.addEventListener('click', function () {
+  venueConfirmBtn.style.display = 'none';
+  submitArea.style.display = 'block';
+  submitBtn.style.display = 'inline-block';
+  submitArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  venueConfirmed = true;
+  setStep(3);
+});
+
+// ── 送出報名 ─────────────────────────────────────────────────────
+submitBtn.addEventListener('click', function () {
+  if (!validateForm() || !venueConfirmed) return;
+
+  submitBtn.disabled = true;
+  showStatus(statusMsg2, '送出中，請稍候…', '', 0);
+
+  var payload = {
+    name:     fieldName.value.trim(),
+    phone:    fieldPhone.value.trim(),
+    email:    fieldEmail.value.trim(),
+    referrer: fieldReferrer.value.trim(),
+    session:  selectedSession.id,
+    message:  fieldMessage.value.trim()
+  };
+
+  /* CORS 關鍵寫法：
+     - method: POST，Content-Type: text/plain → 瀏覽器不發 preflight
+     - 不用 mode: 'no-cors'，因此可以正常讀 response.body
+     - GAS 回 ContentService JSON → 前台能讀到 ok / full / duplicate
+     這樣自動鎖場（full）和防重複（duplicate）的提示才有效。     */
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  })
+  .then(function (res) {
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    return res.json();
+  })
+  .then(function (data) {
+    if (data.ok) {
+      // 成功
+      formSection.style.display  = 'none';
+      venueSection.style.display = 'none';
+      submitArea.style.display   = 'none';
+      stickyBar.style.display    = 'none';
+      document.getElementById('stepIndicator').style.display = 'none';
+      successScreen.style.display = 'block';
+      document.getElementById('successBody').innerHTML =
+        '感謝 <strong style="color:var(--gold-bright)">' + payload.name + '</strong> 報名！<br><br>' +
+        '場次：' + selectedSession.date + ' ' + selectedSession.time + '<br><br>' +
+        '我們會在活動前兩週以 email 通知場地資訊。<br>' +
+        '有任何問題歡迎聯絡您的引薦夥伴 ' + payload.referrer + '。';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else if (data.full) {
+      // 剛好搶到最後名額時後端才告知額滿（競態防護生效）
+      showToast('很抱歉，此場次剛好額滿！請選擇其他場次。');
+      showStatus(statusMsg2, '', '', 0);
+      submitBtn.disabled = false;
+      // 重新載入場次讓卡片更新為「已額滿」
+      selectedSession = null;
+      updateNextBtn();
+      fetchSessions();
+      // 捲回場次選擇
+      sessionCards.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (data.duplicate) {
+      showToast('您已經報名過這個場次了！');
+      showStatus(statusMsg2, '', '', 0);
+      submitBtn.disabled = false;
+    } else if (data.closed) {
+      showToast('此場次報名時間已截止。');
+      showStatus(statusMsg2, '', '', 0);
+      submitBtn.disabled = false;
+      fetchSessions();
+    } else {
+      throw new Error(data.error || '未知錯誤');
+    }
+  })
+  .catch(function (err) {
+    console.error(err);
+    showStatus(statusMsg2, '送出失敗，請確認網路後再試一次。若問題持續，請聯絡導師協調夥伴。', 'error', 0);
+    submitBtn.disabled = false;
+  });
+});
+
+// ── 初始化：載入場次 ──────────────────────────────────────────────
+fetchSessions();
+</script>
+
+</body>
+</html>
