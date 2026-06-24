@@ -624,7 +624,7 @@ const VENUE_NOTICE =
 
     <!-- 引薦人 -->
     <div class="field-group">
-      <div class="field-label">引薦人 / 邀請夥伴 <span class="req">必填</span></div>
+      <div class="field-label">引薦人 / 邀請夥伴 <span class="field-hint" style="color:var(--ink-dim);font-size:11px;">選填</span></div>
       <input class="field-input" type="text" id="fieldReferrer" placeholder="哪位 BNI 夥伴邀請您來的？">
       <div class="field-hint">這一場茶敘，是哪位會員引薦您？（填對方的姓名即可）</div>
     </div>
@@ -772,8 +772,8 @@ function validateForm() {
   var name     = fieldName.value.trim();
   var phone    = fieldPhone.value.trim();
   var email    = fieldEmail.value.trim();
-  var referrer = fieldReferrer.value.trim();
-  if (!name || !phone || !email || !referrer || !selectedSession) return false;
+  // 引薦人改選填（對齊華地產，必填只剩 姓名/手機/email/場次）
+  if (!name || !phone || !email || !selectedSession) return false;
   if (!/^09\d{8}$/.test(phone)) return false;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return false;
   return true;
@@ -951,7 +951,9 @@ submitBtn.addEventListener('click', function () {
         '感謝 <strong style="color:var(--gold-bright)">' + payload.name + '</strong> 報名！<br><br>' +
         '場次：' + selectedSession.date + ' ' + selectedSession.time + '<br><br>' +
         '我們會在活動前兩週以 email 通知場地資訊。<br>' +
-        '有任何問題歡迎聯絡您的引薦夥伴 ' + payload.referrer + '。';
+        (payload.referrer
+          ? '有任何問題歡迎聯絡您的引薦夥伴 ' + payload.referrer + '。'
+          : '有任何問題歡迎詢問導師協調夥伴。');
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else if (data.full) {
       // 剛好搶到最後名額時後端才告知額滿（競態防護生效）
